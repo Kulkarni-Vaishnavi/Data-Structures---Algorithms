@@ -19,7 +19,8 @@ class node{
      void inorder(node*);
      node* search(node*, int);
      node* deletion(node*,int);
-     node* min(node*);
+     node* mini(node*);
+     node* maxi(node*);
     
 };
 
@@ -49,12 +50,37 @@ node* node ::insert(node* root, int val){
     
 }
 
-node* node::min(node* root){
+node* node::search(node* root, int val){
+    if(root == NULL || root->data == val){
+        return root;
+    }
+
+    else if(val < root->data)
+     return search(root->left, val);
+
+    else
+    return search(root->right,val);
+}
+
+node* node::mini(node* root){
     node* ptr = root;
     while(ptr && ptr->left != NULL){
         ptr = ptr->left;
     }
     return ptr;
+}
+
+
+node* node :: maxi(node* root){
+
+    if(root == NULL)
+      return NULL;
+    
+    else if( root->right == NULL)
+       return root;
+    
+    else 
+      return maxi(root->right);
 }
 node* node::deletion(node* root,int key){
 
@@ -93,7 +119,7 @@ node* node::deletion(node* root,int key){
         
         //if it has 2 childs
         //get the inorder successor
-        node* temp = min(root->right);
+        node* temp = mini(root->right);
         root->data = temp->data;
 
         //deleting inorder successor
@@ -130,6 +156,19 @@ int main(){
     cout<<endl<<"After deleting 40"<<endl;
     n.deletion(root,40);
     n.inorder(root);
+
+     if(n.search(root,70) ==  NULL){
+        cout<<"\nkey 70 doesn't exits"<<endl; 
+    }
+    else
+       cout<<"\nkey  70 exists"<<endl;
+
+    
+     if(n.search(root,34) ==  NULL){
+        cout<<"key 34 doesn't exits"<<endl; 
+    }
+    else
+       cout<<"key  34 exists"<<endl;
 
     return 0;
 

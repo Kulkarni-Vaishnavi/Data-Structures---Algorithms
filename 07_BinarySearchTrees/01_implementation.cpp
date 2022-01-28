@@ -38,7 +38,7 @@ node* node ::insert(node* root, int val){
     else if(val > root->data){
         root->right = insert(root->right, val);
     }
-
+    
     return root;
     
 }
